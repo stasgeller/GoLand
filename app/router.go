@@ -17,7 +17,8 @@ func Router() {
 	r.HandleFunc("/articles", controller.Create).Methods("POST")
 	r.HandleFunc("/articles/{id:[0-9]+}", controller.Delete).Methods("DELETE")
 
-	r.HandleFunc("/parsers/xml", controller.Parse).Methods("GET")
+	r.HandleFunc("/parsers/xml", controller.ParseXML).Methods("POST")
+	r.HandleFunc("/parsers/json", controller.ParseJson).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":1000", r))
 }

@@ -8,7 +8,7 @@ import (
 	"api.com/parsers"
 )
 
-func Parse(w http.ResponseWriter, r *http.Request) {
+func ParseXML(w http.ResponseWriter, r *http.Request) {
 	file, header, err := r.FormFile("file")
 
 	if err != nil {
