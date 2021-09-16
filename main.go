@@ -1,7 +1,7 @@
 package main
 
-import "api.com/config"
+import "api.com/app"
 
 func main() {
-	config.Router()
+	app.Router()
 }

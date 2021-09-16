@@ -1,4 +1,4 @@
-package simplerest
+package controller
 
 import (
 	"encoding/json"

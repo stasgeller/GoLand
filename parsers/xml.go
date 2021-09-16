@@ -1,44 +1,35 @@
 package parsers
 
 import (
-	"encoding/json"
 	"encoding/xml"
 	"fmt"
 	"io/ioutil"
-	"net/http"
+	"mime/multipart"
 	"os"
+
+	"api.com/model"
 )
 
-type Users struct {
-	Users []User `xml:"user"`
+type XmlParser struct {
 }
 
-type User struct {
-	XMLName xml.Name `xml:"user"`
-	Type    string   `xml:"type,attr"`
-	Name    string   `xml:"name"`
-	Social  Social   `xml:"social"`
-}
-
-type Social struct {
-	XMLName  xml.Name `xml:"social"`
-	Facebook string   `xml:"facebook"`
-	Twitter  string   `xml:"twitter"`
-}
-
-func ParseXml(w http.ResponseWriter, r *http.Request) {
-	xmlFile, err := os.Open("./parsers/users.xml")
+func (x XmlParser) Parse(file multipart.File, header multipart.FileHeader) (*model.Users, error) {
+	pointer, err := os.OpenFile(header.Filename, os.O_WRONLY|os.O_CREATE, 0666)
 
 	if err != nil {
-		fmt.Fprintln(w, "ERROR: "+err.Error())
-		return
+		panic(fmt.Sprintf("Read file error: %s", err))
 	}
 
-	defer xmlFile.Close()
-	byteFile, _ := ioutil.ReadAll(xmlFile)
-	var users Users
+	defer pointer.Close()
+
+	var users model.Users
+	byteFile, _ := ioutil.ReadAll(file)
 
 	xml.Unmarshal(byteFile, &users)
 
-	json.NewEncoder(w).Encode(users)
+	return &users, nil
+}
+
+func NewXmlParser() Parser {
+	return XmlParser{}
 }
