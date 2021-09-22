@@ -9,13 +9,13 @@ import (
 )
 
 func ParseXML(w http.ResponseWriter, r *http.Request) {
-	file, header, err := r.FormFile("file")
+	f, _, err := r.FormFile("file")
 
 	if err != nil {
 		panic(fmt.Sprintf("ERROR: %s", err))
 	}
 
-	users, err := parsers.NewXmlParser().Parse(file, *header)
+	users, err := parsers.NewXmlParser().Parse(f)
 
 	if err != nil {
 		fmt.Fprintln(w, "ERROR: "+err.Error())

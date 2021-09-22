@@ -9,7 +9,7 @@ import (
 
 type JsonParser struct{}
 
-func (j JsonParser) Parse(file multipart.File, header multipart.FileHeader) (*model.Users, error) {
+func (j JsonParser) Parse(file multipart.File) (*model.Users, error) {
 	var users model.Users
 	byteFile, _ := ioutil.ReadAll(file)
 	json.Unmarshal(byteFile, &users)

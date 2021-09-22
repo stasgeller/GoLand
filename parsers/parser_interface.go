@@ -7,5 +7,5 @@ import (
 )
 
 type Parser interface {
-	Parse(file multipart.File, header multipart.FileHeader) (*model.Users, error)
+	Parse(file multipart.File) (*model.Users, error)
 }
