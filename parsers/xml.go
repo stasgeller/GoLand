@@ -2,23 +2,24 @@ package parsers
 
 import (
 	"api.com/model"
-	"encoding/xml"
-	"io/ioutil"
+	"encoding/json"
 	"mime/multipart"
 )
 
 type XmlParser struct {
 }
 
-func (x XmlParser) Parse(file multipart.File) (*model.Users, error) {
-	var users model.Users
-	byteFile, _ := ioutil.ReadAll(file)
-
-	xml.Unmarshal(byteFile, &users)
-
-	return &users, nil
-}
-
 func NewXmlParser() Parser {
 	return XmlParser{}
+}
+
+func (x XmlParser) Parse(file multipart.File) (*model.Users, error) {
+	var users model.Users
+	err := json.NewDecoder(file).Decode(&users)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &users, nil
 }

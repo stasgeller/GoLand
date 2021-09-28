@@ -3,20 +3,22 @@ package parsers
 import (
 	"api.com/model"
 	"encoding/json"
-	"io/ioutil"
 	"mime/multipart"
 )
 
 type JsonParser struct{}
 
-func (j JsonParser) Parse(file multipart.File) (*model.Users, error) {
-	var users model.Users
-	byteFile, _ := ioutil.ReadAll(file)
-	json.Unmarshal(byteFile, &users)
-
-	return &users, nil
-}
-
 func NewJsonParser() Parser {
 	return JsonParser{}
+}
+
+func (j JsonParser) Parse(file multipart.File) (*model.Users, error) {
+	var users model.Users
+	err := json.NewDecoder(file).Decode(&users)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &users, nil
 }
