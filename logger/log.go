@@ -1,12 +1,12 @@
 package logger
 
 import (
-	"fmt"
+	"encoding/json"
 	"net/http"
 )
 
 //TODO: Rewrite to separate error-handler package
 func WriteLog(w http.ResponseWriter, err error, statusCode int) {
 	w.WriteHeader(statusCode)
-	fmt.Fprintf(w, err.Error())
+	json.NewEncoder(w).Encode(err)
 }

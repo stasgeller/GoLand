@@ -20,5 +20,5 @@ func Router() {
 	r.HandleFunc("/parsers/xml", controller.ParseXML).Methods("POST")
 	r.HandleFunc("/parsers/json", controller.ParseJson).Methods("POST")
 
-	log.Fatal(http.ListenAndServe(":1000", r))
+	log.Fatal(http.ListenAndServe(":8000", r))
 }
