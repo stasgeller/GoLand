@@ -1,7 +1,11 @@
 package main
 
-import "api.com/config"
+import (
+	"api.com/app"
+	"fmt"
+)
 
 func main() {
-	config.Router()
+	fmt.Println("App is running...")
+	app.Router()
 }

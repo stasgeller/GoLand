@@ -1,4 +1,4 @@
-package simplerest
+package controller
 
 import (
 	"encoding/json"
@@ -11,14 +11,14 @@ import (
 )
 
 type Article struct {
-	Id      string `json:id`
-	Title   string `json:title`
-	Content string `json:content`
+	Id      string `json:"id"`
+	Title   string `json:"title"`
+	Content string `json:"content"`
 }
 
 var Articles = []Article{
-	Article{Id: "0", Title: "Стасик молодец", Content: "У Стасика большой хуй - 3см"},
-	Article{Id: "1", Title: "А у Насти тоже молодец", Content: "У Насти нет хуй, но она всё равно молодец"},
+	Article{Id: "0", Title: "First title", Content: "Content 1"},
+	Article{Id: "1", Title: "Second title", Content: "Content 2"},
 }
 
 func Create(w http.ResponseWriter, r *http.Request) {
